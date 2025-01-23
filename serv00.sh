@@ -32,23 +32,14 @@ green "你选择的IP为: $IP"
 }
 
 read_uuid() {
-        reading "请输入统一的uuid密码 (建议回车默认随机): " UUID
-        if [[ -z "$UUID" ]]; then
-	   UUID=$(uuidgen -r)
-        fi
-	green "你的uuid为: $UUID"
+        UUID="ba3d1b9f-35e9-4545-8f55-6664c62cf4c6"
 }
 
 read_reym() {
         yellow "方式一：回车使用CF域名，支持proxyip+非标端口反代ip功能 (推荐)"
 	yellow "方式二：输入 s 表示使用Serv00自带域名，不支持proxyip功能 (推荐)"
         yellow "方式三：支持其他域名，注意要符合reality域名规则"
-        reading "请输入reality域名 【请选择 回车 或者 s 或者 输入域名】: " reym
-        if [[ -z "$reym" ]]; then
-           reym=www.speedtest.net
-	elif [[ "$reym" == "s" || "$reym" == "S" ]]; then
-           reym=$USERNAME.serv00.net
-        fi
+        reym=www.speedtest.net
 	green "你的reality域名为: $reym"
 }
 
@@ -152,7 +143,6 @@ sleep 2
         download_and_run_singbox
 	cd
 	echo
-	servkeep
         cd $WORKDIR
         echo
         get_links
@@ -202,19 +192,8 @@ argo_configure() {
     yellow "方式一：Argo临时隧道 (无需域名，推荐)"
     yellow "方式二：Argo固定隧道 (需要域名，需要CF设置提取Token)"
     echo -e "${red}注意：${purple}Argo固定隧道使用Token时，需要在cloudflare后台设置隧道端口，该端口必须与vmess-ws的tcp端口 $vmess_port 一致)${re}"
-    reading "输入 g 表示使用Argo固定隧道，回车跳过表示使用Argo临时隧道 【请选择 g 或者 回车】: " argo_choice
-    if [[ "$argo_choice" != "g" && "$argo_choice" != "G" && -n "$argo_choice" ]]; then
-        red "无效的选择，请输入 g 或回车"
-        continue
-    fi
-    if [[ "$argo_choice" == "g" || "$argo_choice" == "G" ]]; then
-        reading "请输入argo固定隧道域名: " ARGO_DOMAIN
-        green "你的argo固定隧道域名为: $ARGO_DOMAIN"
-        reading "请输入argo固定隧道密钥（Json或Token。当你粘贴Token时，必须以ey开头）: " ARGO_AUTH
-        green "你的argo固定隧道密钥为: $ARGO_AUTH"
-    else
-        green "使用Argo临时隧道"
-    fi
+    ARGO_DOMAIN = "wxwxserv.wenxuesomething.us.kg"
+    ARGO_AUTH = "eyJhIjoiNmIzOGIyOWEyNDg5YTI0NzAwYTFiZjBhMTVlMDJiZjAiLCJ0IjoiMTNhOTAwMDYtY2Y0Yy00MmNiLTk3YTYtZGM2NTU2ODgzMDk4IiwicyI6Ik4yWmxOMlpqT0dJdE1EazRaQzAwWmpFM0xUbGlNek10TldSaVlqVmxOVE0xWkRjeSJ9"
     break
 done
 
@@ -1106,29 +1085,6 @@ red "未安装sing-box" && exit
 fi
 }
 
-servkeep() {
-green "安装进程保活"
-curl -sSL https://raw.githubusercontent.com/yonggekkk/sing-box-yg/main/serv00keep.sh -o serv00keep.sh && chmod +x serv00keep.sh
-sed -i '' -e "14s|''|'$UUID'|" serv00keep.sh
-sed -i '' -e "17s|''|'$vless_port'|" serv00keep.sh
-sed -i '' -e "18s|''|'$vmess_port'|" serv00keep.sh
-sed -i '' -e "19s|''|'$hy2_port'|" serv00keep.sh
-sed -i '' -e "20s|''|'$IP'|" serv00keep.sh
-sed -i '' -e "21s|''|'$reym'|" serv00keep.sh
-if [ ! -f "$WORKDIR/boot.log" ]; then
-sed -i '' -e "15s|''|'${ARGO_DOMAIN}'|" serv00keep.sh
-sed -i '' -e "16s|''|'${ARGO_AUTH}'|" serv00keep.sh
-fi
-if ! crontab -l 2>/dev/null | grep -q 'serv00keep'; then
-if [ -f "$WORKDIR/boot.log" ] || grep -q "trycloudflare.com" "$WORKDIR/boot.log" 2>/dev/null; then
-check_process="! ps aux | grep '[c]onfig' > /dev/null || ! ps aux | grep [l]ocalhost > /dev/null"
-else
-check_process="! ps aux | grep '[c]onfig' > /dev/null || ! ps aux | grep [t]oken > /dev/null"
-fi
-(crontab -l 2>/dev/null; echo "*/2 * * * * if $check_process; then /bin/bash serv00keep.sh; fi") | crontab -
-fi
-green "主进程+Argo进程保活安装完毕，默认每2分钟执行一次，运行 crontab -e 可自行修改保活执行间隔" && sleep 2
-}
 
 okip(){
     IP_LIST=($(devil vhost list | awk '/^[0-9]+/ {print $1}'))
