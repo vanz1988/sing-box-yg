@@ -1164,7 +1164,7 @@ else
 red "未安装sing-box，请选择 1 进行安装" 
 alreadyinstall=0
 fi
-curl -sSL https://raw.githubusercontent.com/yonggekkk/vanz1988/main/serv00.sh -o serv00.sh && chmod +x serv00.sh
+curl -sSL https://raw.githubusercontent.com/vanz1988/sing-box-yg/main/serv00.sh -o serv00.sh && chmod +x serv00.sh
    echo   "========================================================="
   if [ "$alreadyinstall" -eq 0 ]; then
 	choice=1
