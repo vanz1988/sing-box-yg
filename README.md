@@ -69,7 +69,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/sing-box-yg/main/sb
 
 ### 1、Serv00本地专用一键脚本，快捷方式：```bash serv00.sh```
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/sing-box-yg/main/serv00.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/vanz1988/sing-box-yg/main/serv00.sh)
 ```
 ### Sing-box-serv00脚本界面预览图（注：仅供围观）
 ![e8e20bb88b3812e88631d8d64d39f02](https://github.com/user-attachments/assets/0e375140-e5cd-46f0-8819-594c655618ba)
