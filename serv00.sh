@@ -27,9 +27,6 @@ read_uuid() {
 }
 
 read_reym() {
-        yellow "方式一：回车使用CF域名，支持proxyip+非标端口反代ip功能 (推荐)"
-	yellow "方式二：输入 s 表示使用Serv00自带域名，不支持proxyip功能 (推荐)"
-        yellow "方式三：支持其他域名，注意要符合reality域名规则"
         reym=www.speedtest.net
 	green "你的reality域名为: $reym"
 }
