@@ -18,16 +18,7 @@ HOSTNAME=$(hostname)
 
 read_ip() {
 cat ip.txt
-reading "请输入上面三个IP中的任意一个 (建议默认回车自动选择可用IP): " IP
-if [[ -z "$IP" ]]; then
 IP=$(grep -m 1 "可用" ip.txt | awk -F ':' '{print $1}')
-if [ -z "$IP" ]; then
-IP=$(okip)
-if [ -z "$IP" ]; then
-IP=$(head -n 1 ip.txt | awk -F ':' '{print $1}')
-fi
-fi
-fi
 green "你选择的IP为: $IP"
 }
 
@@ -191,7 +182,6 @@ argo_configure() {
   while true; do
     yellow "方式一：Argo临时隧道 (无需域名，推荐)"
     yellow "方式二：Argo固定隧道 (需要域名，需要CF设置提取Token)"
-    echo -e "${red}注意：${purple}Argo固定隧道使用Token时，需要在cloudflare后台设置隧道端口，该端口必须与vmess-ws的tcp端口 $vmess_port 一致)${re}"
     ARGO_DOMAIN = "wxwxserv.wenxuesomething.us.kg"
     ARGO_AUTH = "eyJhIjoiNmIzOGIyOWEyNDg5YTI0NzAwYTFiZjBhMTVlMDJiZjAiLCJ0IjoiMTNhOTAwMDYtY2Y0Yy00MmNiLTk3YTYtZGM2NTU2ODgzMDk4IiwicyI6Ik4yWmxOMlpqT0dJdE1EazRaQzAwWmpFM0xUbGlNek10TldSaVlqVmxOVE0xWkRjeSJ9"
     break
