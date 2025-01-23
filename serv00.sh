@@ -1157,7 +1157,6 @@ check_process="! ps aux | grep '[c]onfig' > /dev/null || ! ps aux | grep [l]ocal
 else
 check_process="! ps aux | grep '[c]onfig' > /dev/null || ! ps aux | grep [t]oken > /dev/null"
 fi
-yellow "发现Cron保活可能被重置清空！现已修复成功！"
 yellow "主进程与Argo进程启动中…………2分钟后可再次进入脚本查看"
 else
 green "Cron保活运行正常"
