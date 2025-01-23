@@ -145,9 +145,9 @@ uninstall_singbox() {
     case "$choice" in
        [Yy])
           bash -c 'ps aux | grep $(whoami) | grep -v "sshd\|bash\|grep" | awk "{print \$2}" | xargs -r kill -9 >/dev/null 2>&1' >/dev/null 2>&1
-          rm -rf domains serv00.sh serv00keep.sh
+          rm -rf domains serv00.sh kpkp.sh
 	  rm -rf /usr/home/${USERNAME}/domains/${USERNAME}.serv00.net/public_html/*
-	  crontab -l | grep -v "serv00keep" >rmcron
+	  crontab -l | grep -v "kpkp" >rmcron
           crontab rmcron >/dev/null 2>&1
           rm rmcron
           clear
@@ -163,7 +163,7 @@ reading "\n清理所有进程并清空所有安装内容，将退出ssh连接，
   case "$choice" in
     [Yy]) 
     bash -c 'ps aux | grep $(whoami) | grep -v "sshd\|bash\|grep" | awk "{print \$2}" | xargs -r kill -9 >/dev/null 2>&1' >/dev/null 2>&1
-    crontab -l | grep -v "serv00keep" >rmcron
+    crontab -l | grep -v "kpkp" >rmcron
     crontab rmcron >/dev/null 2>&1
     rm rmcron
     rm -rf /usr/home/${USERNAME}/domains/${USERNAME}.serv00.net/public_html/*
@@ -1060,18 +1060,18 @@ fi
 
 servkeep() {
 green "安装进程保活"
-curl -sSL https://raw.githubusercontent.com/vanz1988/sing-box-yg/main/serv00keep.sh -o serv00keep.sh && chmod +x serv00keep.sh
-sed -i '' -e "14s|''|'$UUID'|" serv00keep.sh
-sed -i '' -e "17s|''|'$vless_port'|" serv00keep.sh
-sed -i '' -e "18s|''|'$vmess_port'|" serv00keep.sh
-sed -i '' -e "19s|''|'$hy2_port'|" serv00keep.sh
-sed -i '' -e "20s|''|'$IP'|" serv00keep.sh
-sed -i '' -e "21s|''|'$reym'|" serv00keep.sh
+curl -sSL https://raw.githubusercontent.com/vanz1988/sing-box-yg/main/serv00keep.sh -o kpkp.sh && chmod +x kpkp.sh
+sed -i '' -e "14s|''|'$UUID'|" kpkp.sh
+sed -i '' -e "17s|''|'$vless_port'|" kpkp.sh
+sed -i '' -e "18s|''|'$vmess_port'|" kpkp.sh
+sed -i '' -e "19s|''|'$hy2_port'|" kpkp.sh
+sed -i '' -e "20s|''|'$IP'|" kpkp.sh
+sed -i '' -e "21s|''|'$reym'|" kpkp.sh
 if [ ! -f "$WORKDIR/boot.log" ]; then
-sed -i '' -e "15s|''|'${ARGO_DOMAIN}'|" serv00keep.sh
-sed -i '' -e "16s|''|'${ARGO_AUTH}'|" serv00keep.sh
+sed -i '' -e "15s|''|'${ARGO_DOMAIN}'|" kpkp.sh
+sed -i '' -e "16s|''|'${ARGO_AUTH}'|" kpkp.sh
 fi
-if ! crontab -l 2>/dev/null | grep -q 'serv00keep'; then
+if ! crontab -l 2>/dev/null | grep -q 'kpkp'; then
 if [ -f "$WORKDIR/boot.log" ] || grep -q "trycloudflare.com" "$WORKDIR/boot.log" 2>/dev/null; then
 check_process="! ps aux | grep '[c]onfig' > /dev/null || ! ps aux | grep [l]ocalhost > /dev/null"
 else
@@ -1175,7 +1175,7 @@ fi
 if [ ! -f "$WORKDIR/boot.log" ] && ! ps aux | grep [t]oken > /dev/null; then
 yellow "当前Argo固定域名：$(cat $WORKDIR/gdym.log 2>/dev/null)，启用失败，请检查相关参数是否输入有误"
 fi
-if ! crontab -l 2>/dev/null | grep -q 'serv00keep'; then
+if ! crontab -l 2>/dev/null | grep -q 'kpkp'; then
 if [ -f "$WORKDIR/boot.log" ] || grep -q "trycloudflare.com" "$WORKDIR/boot.log" 2>/dev/null; then
 check_process="! ps aux | grep '[c]onfig' > /dev/null || ! ps aux | grep [l]ocalhost > /dev/null"
 else
