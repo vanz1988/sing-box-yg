@@ -181,6 +181,9 @@ argo_configure() {
     yellow "方式二：Argo固定隧道 (需要域名，需要CF设置提取Token)"
     ARGO_DOMAIN = "wxwxserv.wenxuesomething.us.kg"
     ARGO_AUTH = "eyJhIjoiNmIzOGIyOWEyNDg5YTI0NzAwYTFiZjBhMTVlMDJiZjAiLCJ0IjoiMTNhOTAwMDYtY2Y0Yy00MmNiLTk3YTYtZGM2NTU2ODgzMDk4IiwicyI6Ik4yWmxOMlpqT0dJdE1EazRaQzAwWmpFM0xUbGlNek10TldSaVlqVmxOVE0xWkRjeSJ9"
+    green "你的argo固定隧道域名为: $ARGO_DOMAIN"
+
+    green "你的argo固定隧道密钥为: $ARGO_AUTH"
     break
 done
 
@@ -451,26 +454,7 @@ fi
 }
 
 get_argodomain() {
-  if [[ -n $ARGO_AUTH ]]; then
-    echo "$ARGO_DOMAIN" > gdym.log
-    echo "$ARGO_DOMAIN"
-  else
-    local retry=0
-    local max_retries=6
-    local argodomain=""
-    while [[ $retry -lt $max_retries ]]; do
-    ((retry++)) 
-    argodomain=$(cat boot.log 2>/dev/null | grep -a trycloudflare.com | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
-      if [[ -n $argodomain ]]; then
-        break
-      fi
-      sleep 2
-    done  
-    if [ -z ${argodomain} ]; then
-    argodomain="Argo临时域名暂时获取失败，Argo节点暂不可用"
-    fi
-    echo "$argodomain"
-  fi
+  echo "$ARGO_DOMAIN"
 }
 
 get_links(){
