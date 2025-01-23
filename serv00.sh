@@ -179,8 +179,8 @@ argo_configure() {
   while true; do
     yellow "方式一：Argo临时隧道 (无需域名，推荐)"
     yellow "方式二：Argo固定隧道 (需要域名，需要CF设置提取Token)"
-    ARGO_DOMAIN = wxwxserv.wenxuesomething.us.kg
-    ARGO_AUTH = eyJhIjoiNmIzOGIyOWEyNDg5YTI0NzAwYTFiZjBhMTVlMDJiZjAiLCJ0IjoiMTNhOTAwMDYtY2Y0Yy00MmNiLTk3YTYtZGM2NTU2ODgzMDk4IiwicyI6Ik4yWmxOMlpqT0dJdE1EazRaQzAwWmpFM0xUbGlNek10TldSaVlqVmxOVE0xWkRjeSJ9
+    ARGO_DOMAIN=wxwxserv.wenxuesomething.us.kg
+    ARGO_AUTH=eyJhIjoiNmIzOGIyOWEyNDg5YTI0NzAwYTFiZjBhMTVlMDJiZjAiLCJ0IjoiMTNhOTAwMDYtY2Y0Yy00MmNiLTk3YTYtZGM2NTU2ODgzMDk4IiwicyI6Ik4yWmxOMlpqT0dJdE1EazRaQzAwWmpFM0xUbGlNek10TldSaVlqVmxOVE0xWkRjeSJ9
     green "你的argo固定隧道域名为: $ARGO_DOMAIN"
 
     green "你的argo固定隧道密钥为: $ARGO_AUTH"
