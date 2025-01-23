@@ -454,6 +454,7 @@ fi
 }
 
 get_argodomain() {
+  echo "$ARGO_DOMAIN" > gdym.log
   echo "$ARGO_DOMAIN"
 }
 
