@@ -18,7 +18,10 @@ HOSTNAME=$(hostname)
 
 read_ip() {
 cat ip.txt
+IP=$(grep -m 1 "被墙" ip.txt | awk -F ':' '{print $1}')
+if [ -z "$IP" ]; then
 IP=$(head -n 1 ip.txt | awk -F ':' '{print $1}')
+fi
 green "你选择的IP为: $IP"
 }
 
